@@ -5,8 +5,6 @@ data "template_file" "nat-gateway_startup-script" {
 sysctl -w net.ipv4.ip_forward=1
 iptables -t nat -A POSTROUTING -o eth0 -j MASQUERADE
 apt-get update
-# Install nginx for instance http health check
-apt-get install -y nginx
 ENABLE_SQUID="${var.squid_enabled}"
 if [[ "$ENABLE_SQUID" == "true" ]]; then
   apt-get install -y squid3
@@ -15,5 +13,8 @@ ${file("${var.squid_config == "" ? "${format("%s/config/squid.conf", path.module
 EOM
   systemctl reload squid3
 fi
+# install stackdriver
+curl -O "https://repo.stackdriver.com/stack-install.sh"
+sudo bash stack-install.sh --write-gcm
 EOF
 }
