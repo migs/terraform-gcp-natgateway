@@ -26,7 +26,7 @@ resource "google_compute_instance_group_manager" "nat-gateway-zone1" {
   project = "${var.project}"
   name = "${var.prefix}nat-gateway-zone1"
   base_instance_name = "${var.prefix}nat-gateway"
-  zone = "${lookup(var.region_params["${var.region}",zone1)}"
+  zone = "${lookup(var.region_params["${var.region}"],zone1)}"
   instance_template = "${google_compute_instance_template.nat-gateway.self_link}"
   target_size = "1"
   auto_healing_policies {
@@ -44,7 +44,7 @@ resource "google_compute_instance_group_manager" "nat-gateway-zone2" {
   project = "${var.project}"
   name = "${var.prefix}nat-gateway-zone2"
   base_instance_name = "${var.prefix}nat-gateway"
-  zone = "${lookup(var.region_params["${var.region}",zone2)}"
+  zone = "${lookup(var.region_params["${var.region}"],zone2)}"
   instance_template = "${google_compute_instance_template.nat-gateway.self_link}"
   target_size = "1"
   auto_healing_policies {
@@ -62,7 +62,7 @@ resource "google_compute_instance_group_manager" "nat-gateway-zone3" {
   project = "${var.project}"
   name = "${var.prefix}nat-gateway-zone3"
   base_instance_name = "${var.prefix}nat-gateway"
-  zone = "${lookup(var.region_params["${var.region}",zone3)}"
+  zone = "${lookup(var.region_params["${var.region}"],zone3)}"
   instance_template = "${google_compute_instance_template.nat-gateway.self_link}"
   target_size = "1"
   auto_healing_policies {
