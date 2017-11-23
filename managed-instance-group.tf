@@ -77,21 +77,21 @@ resource "google_compute_instance_group_manager" "nat-gateway-zone3" {
 
 data "google_compute_instance_group" "nat-gateway-zone1" {
   name = "${google_compute_instance_group_manager.nat-gateway-zone1.name}"
-  zone = "${lookup(var.region_params["${var.region}"],zone1)}"
+  zone = "${lookup(var.region_params["${var.region}"],"zone1")}"
   project = "${var.project}"
 }
 
 data "google_compute_instance_group" "nat-gateway-zone2" {
   name = "${google_compute_instance_group_manager.nat-gateway-zone2.name}"
   count = "${var.ha ? 1 : 0}"
-  zone = "${lookup(var.region_params["${var.region}"],zone2)}"
+  zone = "${lookup(var.region_params["${var.region}"],"zone2")}"
   project = "${var.project}"
 }
 
 data "google_compute_instance_group" "nat-gateway-zone3" {
   name = "${google_compute_instance_group_manager.nat-gateway-zone3.name}"
   count = "${var.ha ? 1 : 0}"
-  zone = "${lookup(var.region_params["${var.region}"],zone3)}"
+  zone = "${lookup(var.region_params["${var.region}"],"zone3")}"
   project = "${var.project}"
 }
 
@@ -123,7 +123,7 @@ resource "google_compute_route" "nat-gateway-zone1" {
   dest_range = "0.0.0.0/0"
   network = "${var.network}"
   next_hop_instance = "${element(split("/", data.google_compute_instance_group.nat-gateway-zone1.instances[0]), 10)}"
-  next_hop_instance_zone = "${lookup(var.region_params["${var.region}"],zone1)}"
+  next_hop_instance_zone = "${lookup(var.region_params["${var.region}"],"zone1")}"
   tags = ["${var.tags}"]
   priority = "${var.priority}"  
 }
@@ -134,7 +134,7 @@ resource "google_compute_route" "nat-gateway-zone2" {
   dest_range = "0.0.0.0/0"
   network = "${var.network}"
   next_hop_instance = "${element(split("/", data.google_compute_instance_group.nat-gateway-zone2.instances[0]), 10)}"
-  next_hop_instance_zone = "${lookup(var.region_params["${var.region}"],zone2)}"
+  next_hop_instance_zone = "${lookup(var.region_params["${var.region}"],"zone2")}"
   tags = ["${var.tags}"]
   priority = "${var.priority}"  
 }
@@ -145,7 +145,7 @@ resource "google_compute_route" "nat-gateway-zone3" {
   dest_range = "0.0.0.0/0"
   network = "${var.network}"
   next_hop_instance = "${element(split("/", data.google_compute_instance_group.nat-gateway-zone3.instances[0]), 10)}"
-  next_hop_instance_zone = "${lookup(var.region_params["${var.region}"],zone3)}"
+  next_hop_instance_zone = "${lookup(var.region_params["${var.region}"],"zone3")}"
   tags = ["${var.tags}"]
   priority = "${var.priority}"  
 }
