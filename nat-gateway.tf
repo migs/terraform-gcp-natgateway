@@ -13,9 +13,9 @@ resource "google_compute_address" "nat-gateway-zone3" {
 }
 
 resource "google_compute_instance" "nat-gateway-zone1" {
-  name = "${var.prefix}nat-gateway-${var.zone1}"
+  name = "${var.prefix}nat-gateway-${lookup(var.region_params["${var.region}"],zone1)}"
   machine_type = "${var.machine_type}"
-  zone = "${var.zone1}"
+  zone = "${lookup(var.region_params["${var.region}"],zone1)}"
   tags = ["${var.tags}"]
   boot_disk {
     initialize_params {
