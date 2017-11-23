@@ -24,4 +24,7 @@ variable "region_params" {
     }
   }
 }
+variable "zone1" { default = "${lookup(var.region_params["${var.region}"],zone1)}"}
+variable "zone2" { default = "${lookup(var.region_params["${var.region}"],zone2)}"}
+variable "zone3" { default = "${lookup(var.region_params["${var.region}"],zone3)}"}
 variable "priority" { default = "800" }
