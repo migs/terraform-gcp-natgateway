@@ -149,25 +149,3 @@ resource "google_compute_route" "nat-gateway-zone3" {
   tags = ["${var.tags}"]
   priority = "${var.priority}"  
 }
-
-resource "google_compute_route" "nat-gateway" {
-  name = "${var.prefix}nat-gateway-${var.zone2}"
-  count = "${var.ha ? 1 : 0}"
-  dest_range = "0.0.0.0/0"
-  network = "${var.network}"
-  next_hop_instance = ARGH
-  next_hop_instance_zone = "${lookup(var.region_params["${var.region}",zone2)}"
-  tags = ["${var.tags}"]
-  priority = "${var.priority}"  
-}
-
-resource "google_compute_route" "nat-gateway" {
-  name = "${var.prefix}nat-gateway-${var.zone3}"
-  count = "${var.ha ? 1 : 0}"
-  dest_range = "0.0.0.0/0"
-  network = "${var.network}"
-  next_hop_instance = ARGH
-  next_hop_instance_zone = "${lookup(var.region_params["${var.region}",zone3)}"
-  tags = ["${var.tags}"]
-  priority = "${var.priority}"  
-}

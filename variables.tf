@@ -24,7 +24,7 @@ variable "nat-gateway-hc-interval" { default = "30" }
 variable "nat-gateway-hc-timeout" { default = "10" }
 variable "nat-gateway-hc-healthy_threshold" { default = "1" }
 variable "nat-gateway-hc-unhealthy_threshold" { default = "10" }
-variable "target_tags" { default = "nat" }
+variable "tags" { default = "nat" }
 variable "ha" { default = false }
 variable "region_params" {
   type = "map"
@@ -41,3 +41,4 @@ variable "region_params" {
     }
   }
 }
+variable "priority" { default = "800" }
