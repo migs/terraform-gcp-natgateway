@@ -122,7 +122,7 @@ resource "google_compute_route" "nat-gateway-zone1" {
   name = "${var.prefix}nat-gateway-${var.zone1}"
   dest_range = "0.0.0.0/0"
   network = "${var.network}"
-  next_hop_instance = "${element(split("/", google_compute_instance_group.nat-gateway-zone1.instances[0]), 10)}"
+  next_hop_instance = "${element(split("/", data.google_compute_instance_group.nat-gateway-zone1.instances[0]), 10)}"
   next_hop_instance_zone = "${lookup(var.region_params["${var.region}"],zone1)}"
   tags = ["${var.tags}"]
   priority = "${var.priority}"  
@@ -133,7 +133,7 @@ resource "google_compute_route" "nat-gateway-zone2" {
   name = "${var.prefix}nat-gateway-${var.zone2}"
   dest_range = "0.0.0.0/0"
   network = "${var.network}"
-  next_hop_instance = "${element(split("/", google_compute_instance_group.nat-gateway-zone2.instances[0]), 10)}"
+  next_hop_instance = "${element(split("/", data.google_compute_instance_group.nat-gateway-zone2.instances[0]), 10)}"
   next_hop_instance_zone = "${lookup(var.region_params["${var.region}"],zone2)}"
   tags = ["${var.tags}"]
   priority = "${var.priority}"  
@@ -144,7 +144,7 @@ resource "google_compute_route" "nat-gateway-zone3" {
   name = "${var.prefix}nat-gateway-${var.zone3}"
   dest_range = "0.0.0.0/0"
   network = "${var.network}"
-  next_hop_instance = "${element(split("/", google_compute_instance_group.nat-gateway-zone3.instances[0]), 10)}"
+  next_hop_instance = "${element(split("/", data.google_compute_instance_group.nat-gateway-zone3.instances[0]), 10)}"
   next_hop_instance_zone = "${lookup(var.region_params["${var.region}"],zone3)}"
   tags = ["${var.tags}"]
   priority = "${var.priority}"  
