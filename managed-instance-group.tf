@@ -119,7 +119,7 @@ resource "google_compute_firewall" "nat-gateway" {
 }
 
 resource "google_compute_route" "nat-gateway-zone1" {
-  name = "${var.prefix}nat-gateway-${var.zone1}"
+  name = "${var.prefix}nat-gateway-${lookup(var.region_params["${var.region}"],"zone1")"
   dest_range = "0.0.0.0/0"
   network = "${var.network}"
   next_hop_instance = "${element(split("/", data.google_compute_instance_group.nat-gateway-zone1.instances[0]), 10)}"
@@ -130,7 +130,7 @@ resource "google_compute_route" "nat-gateway-zone1" {
 
 resource "google_compute_route" "nat-gateway-zone2" {
   count = "${var.ha ? 1 : 0}"
-  name = "${var.prefix}nat-gateway-${var.zone2}"
+  name = "${var.prefix}nat-gateway-${lookup(var.region_params["${var.region}"],"zone2")}"
   dest_range = "0.0.0.0/0"
   network = "${var.network}"
   next_hop_instance = "${element(split("/", data.google_compute_instance_group.nat-gateway-zone2.instances[0]), 10)}"
@@ -141,7 +141,7 @@ resource "google_compute_route" "nat-gateway-zone2" {
 
 resource "google_compute_route" "nat-gateway-zone3" {
   count = "${var.ha ? 1 : 0}"
-  name = "${var.prefix}nat-gateway-${var.zone3}"
+  name = "${var.prefix}nat-gateway-${lookup(var.region_params["${var.region}"],"zone3")"
   dest_range = "0.0.0.0/0"
   network = "${var.network}"
   next_hop_instance = "${element(split("/", data.google_compute_instance_group.nat-gateway-zone3.instances[0]), 10)}"
