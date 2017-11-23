@@ -23,9 +23,10 @@ resource "google_compute_instance" "nat-gateway-zone1" {
     }
   }
   network_interface {
-  subnetwork = "${var.subnetwork}"
-  access_config {
-    nat_ip = "${google_compute_address.nat-gateway-zone1.address}"
+    subnetwork = "${var.subnetwork}"
+    access_config {
+      nat_ip = "${google_compute_address.nat-gateway-zone1.address}"
+    }
   }
   can_ip_forward = true
   metadata_startup_script = "${data.template_file.nat-gateway_startup-script.rendered}"
@@ -42,9 +43,10 @@ resource "google_compute_instance" "nat-gateway-zone2" {
     }
   }
   network_interface {
-  subnetwork = "${var.subnetwork}"
-  access_config {
-    nat_ip = "${google_compute_address.nat-gateway-zone2.address}"
+    subnetwork = "${var.subnetwork}"
+    access_config {
+      nat_ip = "${google_compute_address.nat-gateway-zone2.address}"
+    }
   }
   can_ip_forward = true
   metadata_startup_script = "${data.template_file.nat-gateway_startup-script.rendered}"
@@ -61,9 +63,10 @@ resource "google_compute_instance" "nat-gateway-zone3" {
     }
   }
   network_interface {
-  subnetwork = "${var.subnetwork}"
-  access_config {
-    nat_ip = "${google_compute_address.nat-gateway-zone3.address}"
+    subnetwork = "${var.subnetwork}"
+    access_config {
+      nat_ip = "${google_compute_address.nat-gateway-zone3.address}"
+    }
   }
   can_ip_forward = true
   metadata_startup_script = "${data.template_file.nat-gateway_startup-script.rendered}"
