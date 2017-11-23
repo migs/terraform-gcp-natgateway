@@ -93,12 +93,14 @@ resource "google_compute_instance_group_manager" "nat-gateway-zone3" {
 
 data "google_compute_instance_group" "nat-gateway-zone1" {
   name = "${google_compute_instance_group_manager.nat-gateway-zone1.name}"
+  depends_on = "${google_compute_instance_group_manager.nat-gateway-zone1}"
   zone = "${lookup(var.region_params["${var.region}"],"zone1")}"
   project = "${var.project}"
 }
 
 data "google_compute_instance_group" "nat-gateway-zone2" {
   name = "${google_compute_instance_group_manager.nat-gateway-zone2.name}"
+  depends_on = "${google_compute_instance_group_manager.nat-gateway-zone3}"
   count = "${var.ha ? 1 : 0}"
   zone = "${lookup(var.region_params["${var.region}"],"zone2")}"
   project = "${var.project}"
@@ -106,6 +108,7 @@ data "google_compute_instance_group" "nat-gateway-zone2" {
 
 data "google_compute_instance_group" "nat-gateway-zone3" {
   name = "${google_compute_instance_group_manager.nat-gateway-zone3.name}"
+  depends_on = "${google_compute_instance_group_manager.nat-gateway-zone3}"
   count = "${var.ha ? 1 : 0}"
   zone = "${lookup(var.region_params["${var.region}"],"zone3")}"
   project = "${var.project}"
