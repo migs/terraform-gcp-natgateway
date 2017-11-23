@@ -37,6 +37,8 @@ resource "google_compute_instance_group_manager" "nat-gateway-zone1" {
     name = "${var.nat-gateway-hc-name}"
     port = "${var.nat-gateway-hc-port}"
   }
+  // Race condition when creating route with instance in managed instance group. Wait 30 seconds for the instance to be created by the manager.
+  local_cmd_create = "sleep 30"
 }
 
 resource "google_compute_instance_group_manager" "nat-gateway-zone2" {
@@ -55,6 +57,8 @@ resource "google_compute_instance_group_manager" "nat-gateway-zone2" {
     name = "${var.nat-gateway-hc-name}"
     port = "${var.nat-gateway-hc-port}"
   }
+  // Race condition when creating route with instance in managed instance group. Wait 30 seconds for the instance to be created by the manager.
+  local_cmd_create = "sleep 30"
 }
 
 resource "google_compute_instance_group_manager" "nat-gateway-zone3" {
@@ -73,6 +77,8 @@ resource "google_compute_instance_group_manager" "nat-gateway-zone3" {
     name = "${var.nat-gateway-hc-name}"
     port = "${var.nat-gateway-hc-port}"
   }
+  // Race condition when creating route with instance in managed instance group. Wait 30 seconds for the instance to be created by the manager.
+  local_cmd_create = "sleep 30"
 }
 
 data "google_compute_instance_group" "nat-gateway-zone1" {
