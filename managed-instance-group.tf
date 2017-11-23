@@ -6,7 +6,7 @@ resource "google_compute_instance_template" "nat-gateway" {
     disk_type = "pd-ssd"
   }
   machine_type = "${var.machine_type}"
-  name_prefix = "${var.prefix}"
+  name_prefix = "${var.prefix}nat-gateway"
   can_ip_forward = true
   metadata = "${map("startup-script", "${data.template_file.nat-gateway_startup-script.rendered}")}"
   network_interface {
