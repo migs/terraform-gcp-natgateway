@@ -93,7 +93,7 @@ resource "google_compute_instance_group_manager" "nat-gateway-zone3" {
 
 data "google_compute_instance_group" "nat-gateway-zone1" {
   name = "${google_compute_instance_group_manager.nat-gateway-zone1.name}"
-  depends_on = "${google_compute_instance_group_manager.nat-gateway-zone1}"
+  depends_on = ["${google_compute_instance_group_manager.nat-gateway-zone1}"]
   zone = "${lookup(var.region_params["${var.region}"],"zone1")}"
   project = "${var.project}"
 }
