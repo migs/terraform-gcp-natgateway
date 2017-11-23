@@ -1,4 +1,5 @@
 resource "google_compute_instance_template" "nat-gateway" {
+  region = "${var.region}"
   disk {
     boot = true
     source_image = "${var.image}"
