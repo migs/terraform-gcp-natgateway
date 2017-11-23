@@ -11,7 +11,7 @@ resource "google_compute_instance_template" "nat-gateway" {
   metadata = "${map("startup-script", "${data.template_file.nat-gateway_startup-script.rendered}")}"
   network_interface {
     subnetwork = "${var.subnetwork}"
-    access_config = [""]
+    access_config { }
   }
   service_account {
     email  = "${var.service_account_email}"
