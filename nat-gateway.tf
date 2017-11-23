@@ -33,9 +33,9 @@ resource "google_compute_instance" "nat-gateway-zone1" {
 }
 
 resource "google_compute_instance" "nat-gateway-zone2" {
-  name = "${var.prefix}nat-gateway-${lookup(var.region_params["${var.region}"],zone2)}"
+  name = "${var.prefix}nat-gateway-${lookup(var.region_params,"${var.region}.zone2")}"
   machine_type = "${var.machine_type}"
-  zone = "${lookup(var.region_params["${var.region}"],zone2)}"
+  zone = "${lookup(var.region_params,"${var.region}.zone2")}"
   tags = ["${var.tags}"]
   boot_disk {
     initialize_params {
@@ -53,9 +53,9 @@ resource "google_compute_instance" "nat-gateway-zone2" {
 }
 
 resource "google_compute_instance" "nat-gateway-zone3" {
-  name = "${var.prefix}nat-gateway-${lookup(var.region_params["${var.region}"],zone3)}"
+  name = "${var.prefix}nat-gateway-${lookup(var.region_params,"${var.region}.zone3")}"
   machine_type = "${var.machine_type}"
-  zone = "${lookup(var.region_params["${var.region}"],zone3)}"
+  zone = "${lookup(var.region_params,"${var.region}.zone3")}"
   tags = ["${var.tags}"]
   boot_disk {
     initialize_params {
