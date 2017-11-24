@@ -7,7 +7,7 @@ variable "squid_enabled" { default = false }
 variable "squid_config" { default = "" }
 variable "network" { default  = "default" }
 variable "subnetwork" { default  = "default" }
-variable "tags" { default = "nat" }
+variable "tags" { default = ["nat","internal"] }
 variable "ha" { default = false }
 variable "region_params" {
   type = "map"
