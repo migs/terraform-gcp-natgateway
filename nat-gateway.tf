@@ -14,6 +14,7 @@ resource "google_compute_address" "nat-gateway-zone3" {
 
 resource "google_compute_instance" "nat-gateway-zone1" {
   name = "${var.prefix}-nat-gateway-${lookup(var.region_params,"${var.region}.zone1")}"
+  depends_on = ["google_compute_address.nat-gateway-zone1"]
   machine_type = "${var.machine_type}"
   zone = "${lookup(var.region_params,"${var.region}.zone1")}"
   tags = ["${var.tags}"]
@@ -33,6 +34,7 @@ resource "google_compute_instance" "nat-gateway-zone1" {
 }
 
 resource "google_compute_instance" "nat-gateway-zone2" {
+  depends_on = ["google_compute_address.nat-gateway-zone2"]
   count = "${var.ha ? 1 : 0}"
   name = "${var.prefix}-nat-gateway-${lookup(var.region_params,"${var.region}.zone2")}"
   machine_type = "${var.machine_type}"
