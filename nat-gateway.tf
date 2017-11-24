@@ -35,7 +35,6 @@ resource "google_compute_instance" "nat-gateway-zone1" {
 
 resource "google_compute_instance" "nat-gateway-zone2" {
   depends_on = ["google_compute_address.nat-gateway-zone2"]
-  count = "${var.ha ? 1 : 0}"
   name = "${var.prefix}-nat-gateway-${lookup(var.region_params,"${var.region}.zone2")}"
   machine_type = "${var.machine_type}"
   zone = "${lookup(var.region_params,"${var.region}.zone2")}"
@@ -56,7 +55,6 @@ resource "google_compute_instance" "nat-gateway-zone2" {
 }
 
 resource "google_compute_instance" "nat-gateway-zone3" {
-  count = "${var.ha ? 1 : 0}"
   name = "${var.prefix}-nat-gateway-${lookup(var.region_params,"${var.region}.zone3")}"
   machine_type = "${var.machine_type}"
   zone = "${lookup(var.region_params,"${var.region}.zone3")}"
@@ -78,7 +76,6 @@ resource "google_compute_instance" "nat-gateway-zone3" {
 
 resource "google_compute_route" "nat-gateway-zone1" {
   name = "${var.prefix}-nat-gateway-${lookup(var.region_params,"${var.region}.zone1")}"
-  depends_on = ["google_compute_instance.nat-gateway-zone1"]
   dest_range = "0.0.0.0/0"
   network = "${var.network}"
   next_hop_instance = "${google_compute_instance.nat-gateway-zone1.name}"
@@ -89,7 +86,6 @@ resource "google_compute_route" "nat-gateway-zone1" {
 
 resource "google_compute_route" "nat-gateway-zone2" {
   name = "${var.prefix}-nat-gateway-${lookup(var.region_params,"${var.region}.zone2")}"
-  depends_on = ["google_compute_instance.nat-gateway-zone2"]
   dest_range = "0.0.0.0/0"
   network = "${var.network}"
   next_hop_instance = "${google_compute_instance.nat-gateway-zone2.name}"
@@ -100,7 +96,6 @@ resource "google_compute_route" "nat-gateway-zone2" {
 
 resource "google_compute_route" "nat-gateway-zone3" {
   name = "${var.prefix}-nat-gateway-${lookup(var.region_params,"${var.region}.zone3")}"
-  depends_on = ["google_compute_instance.nat-gateway-zone3"]
   dest_range = "0.0.0.0/0"
   network = "${var.network}"
   next_hop_instance = "${google_compute_instance.nat-gateway-zone3.name}"
