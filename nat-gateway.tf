@@ -79,7 +79,7 @@ resource "google_compute_route" "nat-gateway-zone1" {
   next_hop_instance = "${google_compute_instance.nat-gateway-zone1.name}"
   next_hop_instance_zone = "${lookup(var.region_params,"${var.region}.zone1")}"
   priority = "${var.priority}"
-  tags = ["${var.tags}"]
+  tags = ["no-ip"]
 }
 
 resource "google_compute_route" "nat-gateway-zone2" {
@@ -89,7 +89,7 @@ resource "google_compute_route" "nat-gateway-zone2" {
   next_hop_instance = "${google_compute_instance.nat-gateway-zone2.name}"
   next_hop_instance_zone = "${lookup(var.region_params,"${var.region}.zone2")}"
   priority = "${var.priority}"
-  tags = ["${var.tags}"]
+  tags = ["no-ip"]
 }
 
 resource "google_compute_route" "nat-gateway-zone3" {
@@ -99,5 +99,5 @@ resource "google_compute_route" "nat-gateway-zone3" {
   next_hop_instance = "${google_compute_instance.nat-gateway-zone3.name}"
   next_hop_instance_zone = "${lookup(var.region_params,"${var.region}.zone3")}"
   priority = "${var.priority}"
-  tags = ["${var.tags}"]
+  tags = ["no-ip"]
 }
