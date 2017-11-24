@@ -21,11 +21,3 @@ By passing the `ha` variable as `true`, 3 NAT gateways will be created instead o
 ## Variables
 
 See `variables.tf` for a complete list of variables that can be overridden as required.
-
-## Outputs
-
-The following outputs are defined:
-
-`nat-gateway-zone1-external_ip` : External IP of nat-gateway-zone1
-`nat-gateway-zone2-external_ip` : External IP of nat-gateway-zone2
-`nat-gateway-zone3-external_ip` : External IP of nat-gateway-zone3
