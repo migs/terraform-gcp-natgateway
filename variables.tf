@@ -21,3 +21,4 @@ variable "region_params" {
   }
 }
 variable "priority" { default = "800" }
+variable "route-tag" { default = "no-ip" }

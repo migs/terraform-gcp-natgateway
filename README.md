@@ -11,13 +11,16 @@ module "terraform-gcp-natgateway" {
   region = "${var.region}"
 }
 ```
+
+All VMs without public IP addresses should have the `no-ip` tag to enable routing traffic through the NAT Gateway(s). This can be overridden with the `route-tag` variable.
+
 ## High Availability
 
 By passing the `ha` variable as `true`, 3 NAT gateways will be created instead of 1
 
 ## Variables
 
-See `variables.tf`
+See `variables.tf` for a complete list of variables that can be overridden as required.
 
 ## Outputs
 
