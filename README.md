@@ -21,3 +21,7 @@ By passing the `ha` variable as `true`, 3 NAT gateways will be created instead o
 ## Variables
 
 See `variables.tf` for a complete list of variables that can be overridden as required.
+
+## Known Issues
+
+1. This module will fail if the `asia-southeast1` region is selected and `ha` is set to `true`, as `asia-southeast1` only has 2 zones.
