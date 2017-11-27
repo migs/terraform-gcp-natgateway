@@ -19,7 +19,7 @@ resource "google_compute_instance" "nat-gateway-zone1" {
   tags = ["${var.tags}"]
   boot_disk {
     initialize_params {
-      image = "${var.natgateway-image}"
+      image = "${var.nat-gateway-image}"
     }
   }
   network_interface {
@@ -40,7 +40,7 @@ resource "google_compute_instance" "nat-gateway-zone2" {
   tags = ["${var.tags}"]
   boot_disk {
     initialize_params {
-      image = "${var.natgateway-image}"
+      image = "${var.nat-gateway-image}"
     }
   }
   network_interface {
@@ -61,7 +61,7 @@ resource "google_compute_instance" "nat-gateway-zone3" {
   tags = ["${var.tags}"]
   boot_disk {
     initialize_params {
-      image = "${var.natgateway-image}"
+      image = "${var.nat-gateway-image}"
     }
   }
   network_interface {
