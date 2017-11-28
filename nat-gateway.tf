@@ -1,5 +1,5 @@
 resource "google_compute_address" "nat-gateway" {
-  name = "${var.prefix}-nat-gateway-${lookup(var.region_params["${var.region}"],"zone${element(var.zones, count.index)}")}"
+  name = "${var.prefix}-nat-gateway"
   count = "${var.zones}"
 }
 
@@ -17,7 +17,7 @@ resource "google_compute_instance" "nat-gateway" {
   network_interface {
     subnetwork = "${var.subnetwork}"
     access_config {
-      nat_ip = "${google_compute_address.nat-gateway${element(var.zones, count.index)}.address}"
+      nat_ip = "${element(google_compute_address.nat-gateway.address, count.index)}"
     }
   }
   can_ip_forward = true
