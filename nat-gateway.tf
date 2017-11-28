@@ -29,7 +29,7 @@ resource "google_compute_route" "nat-gateway" {
   name = "${var.prefix}-nat-gateway-${lookup(var.region_params["${var.region}"], "zone${count.index}")}"
   dest_range = "0.0.0.0/0"
   network = "${var.network}"
-  next_hop_instance_zone = "${element(var.region_params["${var.region}"], count.index)}"
+  next_hop_instance_zone = "${lookup(var.region_params["${var.region}"], "zone${count.index}")}"
   next_hop_instance = "${element(google_compute_instance.nat-gateway.name, count.index)}"
   priority = "${var.priority}"
   tags = ["${var.route-tag}"]
