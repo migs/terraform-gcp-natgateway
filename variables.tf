@@ -1,5 +1,6 @@
 variable "project" { }
 variable "region" { }
+variable "zones" { default = "1" }
 variable "nat-gateway-image" { default = "debian-cloud/debian-8" }
 variable "nat-gateway-machine_type" { default = "f1-micro" }
 variable "prefix" { default = "default" }
@@ -8,7 +9,6 @@ variable "squid_config" { default = "" }
 variable "network" { default  = "default" }
 variable "subnetwork" { default  = "default" }
 variable "tags" { default = ["nat","internal"] }
-variable "ha" { default = false }
 variable "priority" { default = "800" }
 variable "route-tag" { default = "no-ip" }
 variable "region_params" {
