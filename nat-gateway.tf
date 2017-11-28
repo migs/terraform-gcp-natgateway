@@ -1,11 +1,11 @@
 resource "google_compute_address" "nat-gateway" {
-  name = "${var.prefix}-nat-gateway-${lookup(var.region_params["${var.region}"], "zone${count.index}")}"
+  name = "${var.network}-nat-gateway-${lookup(var.region_params["${var.region}"], "zone${count.index}")}"
   count = "${var.zones}"
 }
 
 resource "google_compute_instance" "nat-gateway" {
   count = "${var.zones}"
-  name = "${var.prefix}-${var.network}-nat-gateway-${lookup(var.region_params["${var.region}"], "zone${count.index}")}"
+  name = "${var.network}-nat-gateway-${lookup(var.region_params["${var.region}"], "zone${count.index}")}"
   machine_type = "${var.nat-gateway-machine_type}"
   zone = "${lookup(var.region_params["${var.region}"], "zone${count.index}")}"
   tags = ["${var.tags}"]
@@ -26,7 +26,7 @@ resource "google_compute_instance" "nat-gateway" {
 
 resource "google_compute_route" "nat-gateway" {
   count = "${var.zones}"
-  name = "${var.prefix}-${var.network}-nat-gateway-${lookup(var.region_params["${var.region}"], "zone${count.index}")}"
+  name = "${var.network}-nat-gateway-${lookup(var.region_params["${var.region}"], "zone${count.index}")}"
   dest_range = "0.0.0.0/0"
   network = "${var.network}"
   next_hop_instance_zone = "${lookup(var.region_params["${var.region}"], "zone${count.index}")}"

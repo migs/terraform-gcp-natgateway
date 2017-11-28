@@ -3,7 +3,6 @@ variable "region" { }
 variable "zones" { default = "1" }
 variable "nat-gateway-image" { default = "debian-cloud/debian-8" }
 variable "nat-gateway-machine_type" { default = "f1-micro" }
-variable "prefix" { default = "default" }
 variable "squid_enabled" { default = false }
 variable "squid_config" { default = "" }
 variable "network" { default  = "default" }
