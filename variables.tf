@@ -13,10 +13,10 @@ variable "route-tag" { default = "no-ip" }
 variable "image_params" {
   type = "map"
   default {
-    debian-cloud_debian-8 {
+    debian-cloud/debian-8 {
       network-interface = "eth0"
     }
-    ubuntu-os-cloud_ubuntu-1604-lts {
+    ubuntu-os-cloud/ubuntu-1604-lts {
       network-interface = "ens4"
     }
   }
