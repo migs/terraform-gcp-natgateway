@@ -1,7 +1,7 @@
 variable "project" { }
 variable "region" { }
 variable "zones" { default = "1" }
-variable "nat-gateway-image" { default = "debian-cloud/debian-8" }
+variable "nat-gateway-image" { default = "debian-8" }
 variable "nat-gateway-machine_type" { default = "f1-micro" }
 variable "squid_enabled" { default = false }
 variable "squid_config" { default = "" }
@@ -13,10 +13,10 @@ variable "route-tag" { default = "no-ip" }
 variable "image_params" {
   type = "map"
   default {
-    debian-cloud/debian-8 {
+    debian-8 {
       network-interface = "eth0"
     }
-    ubuntu-os-cloud/ubuntu-1604-lts {
+    ubuntu-1604-lts {
       network-interface = "ens4"
     }
   }
