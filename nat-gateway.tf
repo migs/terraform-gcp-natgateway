@@ -1,5 +1,5 @@
 resource "google_compute_address" "nat-gateway" {
-  name = "${var.prefix}-nat-gateway-${lookup(var.region_params["${var.region}"],"zone"${element(var.zones, count.index)})}"
+  name = "${var.prefix}-nat-gateway-${lookup(var.region_params["${var.region}"],"zone${element(var.zones, count.index)}")}"
   count = "${var.zones}"
 }
 
