@@ -5,7 +5,7 @@ resource "google_compute_address" "nat-gateway" {
 
 resource "google_compute_instance" "nat-gateway" {
   count = "${var.zones}"
-  name = "${var.prefix}-nat-gateway-"
+  name = "${var.prefix}-nat-gateway-${element(var.region_params["${var.region}"], count.index)}"
   machine_type = "${var.nat-gateway-machine_type}"
   zone = "${element(var.region_params["${var.region}"], count.index)}"
   tags = ["${var.tags}"]
@@ -24,13 +24,13 @@ resource "google_compute_instance" "nat-gateway" {
   metadata_startup_script = "${data.template_file.nat-gateway_startup-script.rendered}"
 }
 
-resource "google_compute_route" "nat-gateway-zone1" {
+resource "google_compute_route" "nat-gateway" {
   count = "${var.zones}"
-  name = "${var.prefix}-nat-gateway-${lookup(var.region_params["${var.region}"],"zone"${element(var.zones, count.index)})}"
+  name = "${var.prefix}-nat-gateway-${element(var.region_params["${var.region}"], count.index)}"
   dest_range = "0.0.0.0/0"
   network = "${var.network}"
-  next_hop_instance = "${google_compute_instance.nat-gateway-zone1.name}"
-  next_hop_instance_zone = "${element(google_compute_instance.nat-gateway.name, count.index)}"
+  next_hop_instance_zone = "${element(var.region_params["${var.region}"], count.index)}"
+  next_hop_instance = "${element(google_compute_instance.nat-gateway.name, count.index)}"
   priority = "${var.priority}"
   tags = ["${var.route-tag}"]
 }
