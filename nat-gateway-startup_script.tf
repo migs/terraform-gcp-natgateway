@@ -3,7 +3,7 @@ data "template_file" "nat-gateway_startup-script" {
 #!/bin/bash -xe
 # Enable ip forwarding and nat
 sysctl -w net.ipv4.ip_forward=1
-iptables -t nat -A POSTROUTING -o ${lookup(var.image_params["${var.nat-gateway-image}"], var.network-interface)} -j MASQUERADE
+iptables -t nat -A POSTROUTING -o ${lookup(var.image_params["${var.nat-gateway-image}"], "network-interface")} -j MASQUERADE
 apt-get update
 ENABLE_SQUID="${var.squid_enabled}"
 if [[ "$ENABLE_SQUID" == "true" ]]; then
