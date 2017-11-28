@@ -1,21 +1,13 @@
-resource "google_compute_address" "nat-gateway-zone1" {
-  name = "${var.prefix}-nat-gateway-zone1"
+resource "google_compute_address" "nat-gateway" {
+  name = "${var.prefix}-nat-gateway-${lookup(var.region_params["${var.region}"],"zone"${element(var.zones, count.index)})}"
+  count = "${var.zones}"
 }
 
-resource "google_compute_address" "nat-gateway-zone2" {
-  name = "${var.prefix}-nat-gateway-zone2"
-  count = "${var.ha ? 1 : 0}"
-}
-
-resource "google_compute_address" "nat-gateway-zone3" {
-  name = "${var.prefix}-nat-gateway-zone3"
-  count = "${var.ha ? 1 : 0}"
-}
-
-resource "google_compute_instance" "nat-gateway-zone1" {
-  name = "${var.prefix}-nat-gateway-${lookup(var.region_params["${var.region}"],"zone1")}"
+resource "google_compute_instance" "nat-gateway" {
+  count = "${var.zones}"
+  name = "${var.prefix}-nat-gateway-${lookup(var.region_params["${var.region}"],"zone"${element(var.zones, count.index)})}"
   machine_type = "${var.nat-gateway-machine_type}"
-  zone = "${lookup(var.region_params["${var.region}"],"zone1")}"
+  zone = "${lookup(var.region_params["${var.region}"],"zone"element(var.zones, count.index))}"
   tags = ["${var.tags}"]
   boot_disk {
     initialize_params {
@@ -25,49 +17,7 @@ resource "google_compute_instance" "nat-gateway-zone1" {
   network_interface {
     subnetwork = "${var.subnetwork}"
     access_config {
-      nat_ip = "${google_compute_address.nat-gateway-zone1.address}"
-    }
-  }
-  can_ip_forward = true
-  metadata_startup_script = "${data.template_file.nat-gateway_startup-script.rendered}"
-}
-
-resource "google_compute_instance" "nat-gateway-zone2" {
-  count = "${var.ha ? 1 : 0}"
-  name = "${var.prefix}-nat-gateway-${lookup(var.region_params["${var.region}"],"zone2")}"
-  machine_type = "${var.nat-gateway-machine_type}"
-  zone = "${lookup(var.region_params["${var.region}"],"zone2")}"
-  tags = ["${var.tags}"]
-  boot_disk {
-    initialize_params {
-      image = "${var.nat-gateway-image}"
-    }
-  }
-  network_interface {
-    subnetwork = "${var.subnetwork}"
-    access_config {
-      nat_ip = "${google_compute_address.nat-gateway-zone2.address}"
-    }
-  }
-  can_ip_forward = true
-  metadata_startup_script = "${data.template_file.nat-gateway_startup-script.rendered}"
-}
-
-resource "google_compute_instance" "nat-gateway-zone3" {
-  count = "${var.ha ? 1 : 0}"
-  name = "${var.prefix}-nat-gateway-${lookup(var.region_params["${var.region}"],"zone3")}"
-  machine_type = "${var.nat-gateway-machine_type}"
-  zone = "${lookup(var.region_params["${var.region}"],"zone3")}"
-  tags = ["${var.tags}"]
-  boot_disk {
-    initialize_params {
-      image = "${var.nat-gateway-image}"
-    }
-  }
-  network_interface {
-    subnetwork = "${var.subnetwork}"
-    access_config {
-      nat_ip = "${google_compute_address.nat-gateway-zone3.address}"
+      nat_ip = "${google_compute_address.nat-gateway${element(var.zones, count.index)}.address}"
     }
   }
   can_ip_forward = true
@@ -75,33 +25,12 @@ resource "google_compute_instance" "nat-gateway-zone3" {
 }
 
 resource "google_compute_route" "nat-gateway-zone1" {
-  name = "${var.prefix}-nat-gateway-${lookup(var.region_params["${var.region}"],"zone1")}"
+  count = "${var.zones}"
+  name = "${var.prefix}-nat-gateway-${lookup(var.region_params["${var.region}"],"zone"${element(var.zones, count.index)})}"
   dest_range = "0.0.0.0/0"
   network = "${var.network}"
   next_hop_instance = "${google_compute_instance.nat-gateway-zone1.name}"
-  next_hop_instance_zone = "${lookup(var.region_params["${var.region}"],"zone1")}"
-  priority = "${var.priority}"
-  tags = ["${var.route-tag}"]
-}
-
-resource "google_compute_route" "nat-gateway-zone2" {
-  count = "${var.ha ? 1 : 0}"
-  name = "${var.prefix}-nat-gateway-${lookup(var.region_params["${var.region}"],"zone2")}"
-  dest_range = "0.0.0.0/0"
-  network = "${var.network}"
-  next_hop_instance = "${google_compute_instance.nat-gateway-zone2.name}"
-  next_hop_instance_zone = "${lookup(var.region_params["${var.region}"],"zone2")}"
-  priority = "${var.priority}"
-  tags = ["${var.route-tag}"]
-}
-
-resource "google_compute_route" "nat-gateway-zone3" {
-  count = "${var.ha ? 1 : 0}"
-  name = "${var.prefix}-nat-gateway-${lookup(var.region_params["${var.region}"],"zone3")}"
-  dest_range = "0.0.0.0/0"
-  network = "${var.network}"
-  next_hop_instance = "${google_compute_instance.nat-gateway-zone3.name}"
-  next_hop_instance_zone = "${lookup(var.region_params["${var.region}"],"zone3")}"
+  next_hop_instance_zone = "${element(google_compute_instance.nat-gateway.name, count.index)}"
   priority = "${var.priority}"
   tags = ["${var.route-tag}"]
 }
