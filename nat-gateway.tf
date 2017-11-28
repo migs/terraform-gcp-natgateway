@@ -7,7 +7,7 @@ resource "google_compute_instance" "nat-gateway" {
   count = "${var.zones}"
   name = "${var.prefix}-nat-gateway-${lookup(var.region_params["${var.region}"], "zone${count.index}")}"
   machine_type = "${var.nat-gateway-machine_type}"
-  zone = "${element(var.region_params["${var.region}"], count.index)}"
+  zone = "${lookup(var.region_params["${var.region}"], "zone${count.index}")}"
   tags = ["${var.tags}"]
   boot_disk {
     initialize_params {
