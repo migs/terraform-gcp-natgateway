@@ -43,7 +43,7 @@ variable "region_params" {
       zone2 = "europe-west1-c"
       zone3 = "europe-west1-d"
     }
-    europe-west2 {
+    europe-west2 = {
       ["europe-west2-a"],
       ["europe-west2-b"],
       ["europe-west2-c"],
