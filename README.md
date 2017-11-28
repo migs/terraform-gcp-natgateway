@@ -1,6 +1,6 @@
 # Google Cloud Platform NAT Gateway Terraform Module
 
-A Terraform Module for creating either 1 or 3 NAT Gateways in a given Google Project. Inspired by a simalar ['google module'](https://github.com/GoogleCloudPlatform/terraform-google-nat-gateway) but more opinionated, and does not use Managed Instance Groups as the goal for this module is for Terraform to completely own the instances, not to have an external entity creating/destroying them.
+A Terraform Module for creating NAT Gateways in a given Google Project. Inspired by a simalar ['google module'](https://github.com/GoogleCloudPlatform/terraform-google-nat-gateway) but more opinionated, and does not use Managed Instance Groups as the goal for this module is for Terraform to completely own the instances, not to have an external entity creating/destroying them.
 
 ## Usage
 
@@ -16,12 +16,8 @@ All VMs without public IP addresses should have the `no-ip` tag to enable routin
 
 ## High Availability
 
-By passing the `ha` variable as `true`, 3 NAT gateways will be created instead of 1
+By passing the `zones` variable, you can control how many NAT gateways are created (one per zone in a given region).
 
 ## Variables
 
 See `variables.tf` for a complete list of variables that can be overridden as required.
-
-## Known Issues
-
-1. This module will fail if the `asia-southeast1` region is selected and `ha` is set to `true`, as `asia-southeast1` only has 2 zones.
