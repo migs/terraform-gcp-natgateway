@@ -10,6 +10,17 @@ variable "subnetwork" { default  = "default" }
 variable "tags" { default = ["nat","internal"] }
 variable "priority" { default = "800" }
 variable "route-tag" { default = "no-ip" }
+variable "image_params" {
+  type = "map"
+  default {
+    debian-cloud_debian-8 {
+      network-interface = "eth0"
+    }
+    ubuntu-os-cloud_ubuntu-1604-lts {
+      network-interface = "ens4"
+    }
+  }
+}
 variable "region_params" {
   type = "map"
   default {
