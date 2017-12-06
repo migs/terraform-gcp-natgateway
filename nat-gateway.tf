@@ -25,6 +25,7 @@ resource "google_compute_instance" "nat-gateway" {
   service_account {
     scopes = [
       "compute-ro",
+      "storage-rw",
       "logging-write",
       "monitoring-write",
     ]
