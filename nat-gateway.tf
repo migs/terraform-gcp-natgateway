@@ -29,6 +29,7 @@ resource "google_compute_instance" "nat-gateway" {
       "logging.write",
       "monitoring.write",
     ]
+  }
 }
 
 resource "google_compute_route" "nat-gateway" {
