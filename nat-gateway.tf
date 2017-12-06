@@ -24,8 +24,8 @@ resource "google_compute_instance" "nat-gateway" {
   metadata_startup_script = "${data.template_file.nat-gateway_startup-script.rendered}"
   service_account {
     scopes = [
-      "compute-ro",
-      "storage-rw",
+      "compute"
+      "storage-rw"
       "logging-write",
       "monitoring-write",
     ]
