@@ -1,6 +1,6 @@
 # Google Cloud Platform NAT Gateway Terraform Module
 
-A Terraform Module for creating NAT Gateways in a given Google Project. Inspired by a simalar ['google module'](https://github.com/GoogleCloudPlatform/terraform-google-nat-gateway) but more opinionated, and does not use Managed Instance Groups as the goal for this module is for Terraform to completely own the instances, not to have an external entity creating/destroying them.
+A Terraform Module for creating NAT Gateways in a given Google Project. Inspired by a similar ['google module'](https://github.com/GoogleCloudPlatform/terraform-google-nat-gateway) but more opinionated, and does not use Managed Instance Groups as the goal for this module is for Terraform to completely own the instances, not to have an external entity creating/destroying them.
 
 ## Usage
 
