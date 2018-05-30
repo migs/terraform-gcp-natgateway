@@ -1,8 +1,13 @@
 data "template_file" "nat-gateway_startup-script" {
   template = <<EOF
 #!/bin/bash -xe
+
 # Enable ip forwarding and nat
 sysctl -w net.ipv4.ip_forward=1
+
+# Make forwarding persistent.
+sed -i= 's/^[# ]*net.ipv4.ip_forward=[[:digit:]]/net.ipv4.ip_forward=1/g' /etc/sysctl.conf
+
 iptables -t nat -A POSTROUTING -o ${lookup(var.image_params["${var.nat-gateway-image}"], "network-interface")} -j MASQUERADE
 apt-get update
 ENABLE_SQUID="${var.squid_enabled}"
